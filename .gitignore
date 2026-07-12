@@ -1,1 +1,9 @@
-/target
+/.idea/
+/target/
+/web/images/
+
+*.log
+*.json
+*.yaml
+
+.DS_Store
