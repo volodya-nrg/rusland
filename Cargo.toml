@@ -4,6 +4,10 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-tokio = "1.52.3"
+tokio = { version = "1.52.3", features = ["rt", "rt-multi-thread", "macros"] }
 axum = "0.8.9"
 sqlx = "0.9.0"
+serde = "1.0.228"
+config = "0.15.25"
+log = "0.4.33"
+json_env_logger = { version = "0.1.1", features = ["iso-timestamps"] }
