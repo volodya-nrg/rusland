@@ -35,7 +35,7 @@ async fn run(config_filepath: &str) -> Result<(), Box<dyn Error>> {
             ServeDir::new("./web")
                 // предварительно сжатые файлы
                 .precompressed_gzip()
-                // .precompressed_br()
+                .precompressed_br()
                 .not_found_service(ServeFile::new("./web/404.html")),
         );
     // let conn = Connection::connect("sqlite:./data/db.sqlite3").await.unwrap();
