@@ -11,3 +11,4 @@ serde = "1.0.228"
 config = "0.15.25"
 log = "0.4.33"
 json_env_logger = { version = "0.1.1", features = ["iso-timestamps"] }
+tower-http = { version = "0.7.0", features = ["fs"] }
