@@ -11,19 +11,15 @@ use tokio::time::{Duration, sleep};
 use tower_http::services::fs::{ServeDir, ServeFile};
 
 fn main() {
+    let args = Args::parse();
     loop {
-        println!("Работаю...");
+        println!("{}", args.config);
         std::thread::sleep(Duration::from_secs(1));
     }
 }
 
 #[tokio::main]
 async fn main2() {
-    // loop {
-    //     println!("Работаю...");
-    //     thread::sleep(Duration::from_secs(1));
-    // }
-
     let args = Args::parse();
 
     if let Err(e) = run(args.config.as_str()).await {
