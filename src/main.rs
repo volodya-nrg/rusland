@@ -16,10 +16,8 @@ async fn main() {
 
     if let Err(e) = run(args.config.as_str()).await {
         log::error!("failed to run app: {e}");
-        println!("================ 1 ================ ");
         std::process::exit(1);
     }
-    println!("================ 2 ================ ");
 }
 
 async fn run(config_filepath: &str) -> Result<(), Box<dyn Error>> {
@@ -36,7 +34,7 @@ async fn run(config_filepath: &str) -> Result<(), Box<dyn Error>> {
         .fallback_service(
             ServeDir::new("./web")
                 // предварительно сжатые файлы
-                // .precompressed_gzip()
+                .precompressed_gzip()
                 // .precompressed_br()
                 .not_found_service(ServeFile::new("./web/404.html")),
         );
@@ -44,7 +42,6 @@ async fn run(config_filepath: &str) -> Result<(), Box<dyn Error>> {
 
     log::info!("start server on {}", &cfg.http_server.address);
     axum::serve(listener, router).await?;
-    println!("================ 3 ================ ");
     Ok(())
 }
 
