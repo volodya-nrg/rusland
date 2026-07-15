@@ -12,8 +12,21 @@ use tower_http::services::fs::{ServeDir, ServeFile};
 
 fn main() {
     let args = Args::parse();
+    let cfg = config::new(args.config.as_str()).expect("failed to load config file");
+
+    logger::init("my".to_string(), "1".to_string(), "info".to_string());
     loop {
-        println!("{}", args.config);
+        // println!(
+        //     "{} {} {} {}",
+        //     args.config, &cfg.service_name, &cfg.version, &cfg.log.level
+        // );
+        log::info!(
+            "{} {} {} {}",
+            &args.config,
+            &cfg.service_name,
+            &cfg.version,
+            &cfg.log.level
+        );
         std::thread::sleep(Duration::from_secs(1));
     }
 }
