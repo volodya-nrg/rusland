@@ -1,0 +1,11 @@
+services:
+  service_rusland:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "1024:1024" # ссылаемся на 1024 порт из внутри контейнера потому что явно используем config.dev.yaml
+    volumes:
+      - ./web:/home/userx/web
+      - ./config.docker.yaml:/home/userx/config.yaml:ro
+      - ./data/db.sqlite3:/home/userx/data/db.sqlite3
