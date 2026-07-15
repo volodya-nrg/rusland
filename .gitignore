@@ -1,6 +1,6 @@
 /.idea/
 /target/
-/web/images/
+/web/images/*
 
 *.log
 *.json
@@ -8,3 +8,5 @@
 *.sqlite3
 
 .DS_Store
+
+!/web/images/.gitkeep
