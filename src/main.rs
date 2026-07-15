@@ -7,6 +7,7 @@ use axum::routing::get;
 use clap::Parser;
 use std::error::Error;
 use tokio::net::TcpListener;
+use tokio::time::{Duration, sleep};
 use tower_http::services::fs::{ServeDir, ServeFile};
 
 #[tokio::main]
@@ -17,6 +18,9 @@ async fn main() {
         log::error!("failed to run app: {e}");
         std::process::exit(1);
     }
+
+    println!("sleep 2000");
+    sleep(Duration::from_secs(2000)).await;
 }
 
 async fn run(config_filepath: &str) -> Result<(), Box<dyn Error>> {
