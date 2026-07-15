@@ -12,3 +12,4 @@ config = "0.15.25"
 log = "0.4.33"
 json_env_logger = { version = "0.1.1", features = ["iso-timestamps"] }
 tower-http = { version = "0.7.0", features = ["fs"] }
+clap = { version = "4.6.1", features = ["derive"] }

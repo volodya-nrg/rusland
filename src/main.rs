@@ -1,25 +1,26 @@
-mod configs;
+mod config;
 mod logger;
 
 use axum::Router;
 use axum::response::Html;
 use axum::routing::get;
+use clap::Parser;
 use std::error::Error;
-// use sqlx::Connection;
-use sqlx::FromRow;
 use tokio::net::TcpListener;
 use tower_http::services::fs::{ServeDir, ServeFile};
 
 #[tokio::main]
 async fn main() {
-    if let Err(e) = run("./config.yaml").await {
+    let args = Args::parse();
+
+    if let Err(e) = run(args.config.as_str()).await {
         log::error!("failed to run app: {e}");
         std::process::exit(1);
     }
 }
 
 async fn run(config_filepath: &str) -> Result<(), Box<dyn Error>> {
-    let cfg = configs::new(config_filepath)?;
+    let cfg = config::new(config_filepath).expect("failed to load config file");
 
     logger::init(cfg.service_name, cfg.version, cfg.log.level);
 
@@ -43,18 +44,8 @@ async fn run(config_filepath: &str) -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
-#[derive(Debug, Clone)]
-struct State {
-    // db: SqliteConnection,
-}
-impl State {}
-
-#[derive(FromRow)]
-struct OrderRecord {
-    order_id: String,
-    fio: String,
-    tel: String,
-    email: String,
-    description: String,
-    created_at: String,
+#[derive(Parser)]
+struct Args {
+    #[arg(short, long, default_value = "./config.yaml")]
+    config: String,
 }
